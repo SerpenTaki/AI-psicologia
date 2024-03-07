@@ -18,4 +18,41 @@ Questo è in linea con il famoso test ideato da Alan Turing (**Test di Turing**)
 
 ![[Pasted image 20240306222337.png]]
 ### Cosa sa fare l'IA
-- Riconoscimento e/o generazione
+- Riconoscimento e/o generazione di immagini
+- Riconoscimento e/o generazione del parlato
+- Elaborazione del linguaggio naturale e traduzione
+- Supporto alla decisione, sistemi di raccomandazione
+- Rappresentazione della conoscenza, ricerca e recupero di informazioni
+- Sistemi di controllo (*guida assistita, infrastrutture, impianti*)
+**I successi si basano sull'IA neurale, il _deep learning_**
+
+**Machine learning**: metodi e algoritmi che permettono ad un software di ==apprendere dai dati==
+**Deep learning**: algoritmi di apprendimento basati su ==reti neurali artificiali==
+## Le 2 vie verso l'AI
+1. **La mente come un computer:** manipola simboli in modo algoritmico
+	- IA si realizza *scrivendo un programma* **IA classica/simbolica (_intelligenza programmata_)**
+2. **La mente _emerge_ dalle dinamiche di reti neurali complesse in interazione con l'ambiente**:
+	- IA si realizza *simulando reti neurali* **IA neurale (_intelligenza emergente_)**
+	- IA **impara ad eseguire compiti a livello umano o superiore (_videogiochi, scacchi, go_)**
+#### Approccio logico-simbolico
+**Pensare**=*manipolare, attraverso regole, strutture simboliche di rappresentazione*
+Uomo: *i sistemi simbolici sono realizzati nel cervello* -> gli stessi sistemi possono essere realizzati in un computer
+*I processi simbolici sono indipendenti dallo specifico medium su cui vengono realizzati*
+### IA simbolica: *sistemi basati sulla conoscenza*
+- **Struttura:**
+	- **Rappresentazioni simboliche strutturate (_base di conoscenza_)**
+		- Esempio ==ontologie== (*insieme di concetti, assiomi e relazioni che descrivono un dominio di interesse_)
+	- **Sistema di regole (_motore inferenziale_)**
+- **Limitazioni**
+	- conoscenza sul dominio deve essere trasmessa da un esperto umano per essere codificata in modo esplicito
+	- Difficoltà a trasmettere conoscenze empiriche (*informali o implicite*)
+	- Il sistema elabora in modo deterministico
+- **Recenti estensioni**:
+	- approccio probabilistico
+	- apprendimento da dati
+### Approccio neurale (_connessionismo_)
+*McCulloch & Pitts 1943, Hebb 1949*
+**Pensare**= attività di neuroni che formano complesse reti neurali
+*I processi mentali emergono da uno specifico medium: neuroni collegati in una rete*
+
+# Storia delle reti neurali:
