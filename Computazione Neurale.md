@@ -66,4 +66,15 @@ L'*architettura* della rete identifica:
 	- *Reti internamente ricorrenti*: come le reti ricorrenti ma ci sono connessioni **intra-strato** (*laterali*) -> rete D
 ![[Screenshot 2024-03-13 alle 13.26.23.png]]
 **NB**: classi di reti diverse spesso richiedono algoritmi di apprendimento diversi.
-
+## Reti neurali biologiche vs. reti neurali artificiali
+Dire che le reti neurali artificiali sono ispirate a quelle biologiche non significa riprodurre il neurone biologico e le reti di neuroni in tutta la loro complessità bensì catturarne i *principi base* di *funzionamento*
+**Cosa manca nel tipico neurone artificiale**:
+- Organizzazione spaziale dei contatti sinaptici
+- Differenziazione tra neuroni eccitatori ed inibitori
+- Tipi diversi di sinapsi (*neurotrasmettitori*)
+- Dinamica del neurone con potenziali di azione
+**Cosa manca nella tipica rete artificiale**:
+- Struttura laminare e organizzazione colonnare
+- Organizzazione in mappe topografiche
+- Differenza di scala
+	- *nel cervello $10^{11}$, un neurone comunica in media con $10^4$ neuroni*
