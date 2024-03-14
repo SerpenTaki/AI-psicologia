@@ -56,3 +56,21 @@ Uomo: *i sistemi simbolici sono realizzati nel cervello* -> gli stessi sistemi p
 *I processi mentali emergono da uno specifico medium: neuroni collegati in una rete*
 
 # Storia delle reti neurali:
+- **Gli inizi:** 1943-1960
+	- Neurone artificiale - McCulloch & Pitts, 1943
+	- Regola di apprendimento sinaptico - Hebb, 1949
+	- Percettrone (Rosenblatt, 1958) e regola delta (widrow & Hoff, 1960)
+- **Il declino**: 1969-1981
+	- Critiche al percettrone - Minsky & Papert, 1969
+- **Il rinascimento**: 1982-1990
+	- Memorie associative - Hopfield, 1982
+	- Apprendimento con "*error backpropagation*" - Rumelhart, Hinton, 1985
+	- Connessionismo - Rumelhart, McClelland & PDP group, 1986
+- **Nuovi sviluppi**: 1998-2005
+	- Apprendimento per rinforzo - Sutton & Barto, 1998
+	- Apprendimento non supervisionato/generativo - Hinton & sejnowski, 1999
+- **La rivoluzione del "deep learning"**: 2006->oggi
+	- Deep learning - Hinton & Salakhutdinov, 2006
+	- Deep convolutional neural networks
+	- Transformers
+
