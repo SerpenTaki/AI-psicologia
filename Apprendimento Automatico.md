@@ -8,7 +8,6 @@ Immaginiamo un sistema (*biologico* o *artificiale*) che riceve una serie di inp
 1. **Apprendimento supervisionato**: Viene fornito anche l'*output desiderato $y_1, y_2,...$*, e lo scopo è di imparare a **produrre l'output corretto** dato un nuovo input (*il più usato*)
 2. **Apprendimento non supervisionato**: Lo scopo è di **costruire rappresentazioni** dell'input scoprendone le proprietà più importanti ed informative. Queste possono essere in seguito utilizzate per il ragionamento, la decisione, la comunicazione, etc..
 3. **Apprendimento per rinforzo**: Il sistema produce *azioni* che hanno un effetto sul mondo, e riceve *rinforzi (o punizioni)* $r_1,r_2,...$ Lo scopo è di imparare ad agire in un modo che **massimizza il rinforzo** nel lungo termine (*usato per scacchi e go*)
-4. 
 ```mermaid
 flowchart TD
 A(Machine Learning) --> B(Convenzionale)
