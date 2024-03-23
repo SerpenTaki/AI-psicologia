@@ -46,4 +46,45 @@ Per qualunque problema *linearmente separabile* verrà trovata la soluzione in u
 ![[Pasted image 20240322180751.png]]
 ![[Pasted image 20240322180757.png]]
 ![[Pasted image 20240322180807.png]]
-slide 15/19
+## Associatore (*lineare*) di configurazioni
+Un associatore di configurazione è simile ad un percettrone ma i neuroni di output utilizzano una funzione di attivazione continua (come la **_sigmoide_**). L'output dei neuroni è quindi continuo (nel range *0-1*). Questo permette di quantificare l'errore (cf. errore si/no nel percettrone).
+![[Pasted image 20240323110228.png]]
+### La regola delta
+- Applicabile quando le unità di output hanno una funzione di attivazione ==continua e differenziabile== (come la sigmoide)
+- Permette di descrivere la prestazione con una funzione che misura l'errore della rete - *funzione di errore o funzione di costo* - che si basa sullo scarto quadratico medio tra risposta desiderata ed output effettivo: $E_W = 1/2 \sum_\mu\sum_i (t_i^\mu-y_i^\mu)^2$ 
+- L'apprendimento consiste nel minimizzare la funzione di costo $E$, che dipende unicamente dal valore delle connessioni sinaptiche $W$. Quindi si modificano i pesi nella direzione opposta al gradiente della funzione stessa (*discesa del gradiente*): $\Delta w_{ij} = - (\delta E)/(\delta w_{ij})$
+![[Pasted image 20240323111005.png]]
+La forma finale della regola dipende dal tipo di funzione di attivazione (*perchè va calcolato il valore della derivata: $f'(net)$*). Nel caso di una funzione lineare otteniamo che il cambiamento dei pesi è dato semplicemente dalla differenza tra target e output moltiplicata per l'attività presinaptica: $\Delta w_{ij} = \eta (t_i - y_i)x_i$
+Per la funzione sigmoide avremo: $\Delta w_{ij} = \eta(t_i - y_i)y_i(1-y_i)x_j$
+### Apprendimento con la regola delta
+- viene presentata alla rete una configurazione di input
+- L'attivazione fluisce alle unità di output
+- Viene calcolata l'attivazione delle unità di output
+- La configurazione così ottenuta viene confrontata con la configurazione di output desiderata
+- Viene calcolata la *discrepanza* tra le 2 configurazioni (*segnale di errore*)
+- I pesi sulle connessioni vengono *modificati* (cf equazione della regola delta) *in modo da ridurre l'errore*
+La procedura viene eseguita per tutti gli esempi che formano il training set (*epoca di apprendimento*) ed ulteriormente ripetuta (*eseguendo più epoche*) fino a quando l'errore arriva a 0 oppure la ==discesa== dell'errore si arresta.
+**NB**: La regola delta è matematicamente equivalente alla *regola di* **Rescorla-Wagner** per il condizionamento classico.
+![[Pasted image 20240323111957.png]]
+## Reti multistrato
+![[Pasted image 20240323112051.png]]
+- I problemi caratterizzati da inseparabilità lineare (es. XOR) possono essere risolti da reti neurali multistrato, ovvero con uno o più strati intermedi di neuroni nascosti (in inglese: **hidden layers**) che utilizzano una funzione di attivazione non-lineare (_come la sigmoide_)
+- La rete multistrato è un **approssimatore universale**: Una rete neurale con almeno uno strato nascosto composto da un numero appropriato di neuroni con funzione di attivazione non-lineare può, in linea di principio approssimare qualunque funzione X -> Y (input-output)
+### Back-propagation
+- L'algoritmo di apprendimento noto come **back-propagation** è una estensione della **regola delta** ([[Apprendimento supervisionato#La regola delta]]) che permette di addestrare reti multi-strato
+- *Architettura*: qualsiasi numero di strati nascosti (*almeno uno*), qualsiasi connettività (*anche reti ricorrenti, utilizzando una variante dell'algoritmo*)
+- Risolve il problema di come calcolare l'errore per le unità nascoste tramite la propagazione all'indietro dell'errore (**_error back-propagation_**) calcolato per le unità di output attraverso le stesse connessioni che servono per la propagazione dell'attivazione.
+- La propagazione all'indietro dell'errore rende l'algoritmo implausibile dal punto di vista biologico.
+![[Pasted image 20240323113131.png]]
+# Apprendimento *batch* vs. *online*
+- **Batch**: 
+	- discesa del gradiente della funzione dell'*errore globale*, i pesi vengono cambiati in base al gradiente calcolato attraverso tutti i pattern
+	- ![[Pasted image 20240323113817.png]]
+- **Online o mini-batch**:
+	- discesa ==stocastica== del gradiente. I pesi vengono cambiati in base al gradiente della funzione dell'*errore parziale*, calcolato per un singolo esempio (o un piccolo numero di esempi per *mini-batch*)
+	- ![[Pasted image 20240323113950.png]]
+![[Pasted image 20240323114009.png]]
+![[Pasted image 20240323114034.png]]
+#### Momentum
+![[Pasted image 20240323114115.png]]
+Il "**momento**" aggiunge all'aggiornamento del peso sinaptico una frazione del precedente cambiamento di valore. Quando il gradiente dell'errore ha la stessa direzione, il momento aumenta la grandezza del passo che viene fatto (*verso il minimo*). Quando il gradiente cambia direzione, il momento affievolisce il cambiamento.
