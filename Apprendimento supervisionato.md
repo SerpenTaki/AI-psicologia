@@ -107,4 +107,30 @@ Il "**momento**" aggiunge all'aggiornamento del peso sinaptico una frazione del 
 **Come evitare overfitting** (e quindi migliorare la generalizzazione)?
 - Utilizzare reti neurali non troppo potenti permette di apprendere le *regolarità statistiche* nei dati piuttosto che <<*memorizzare*>> i pattern di training. Si può ottenere questo *limitando il numero di unità nascoste* (Verificare anche che lo strato nascosto sia necessario!)
 - *Early stopping*: utilizzare un set di pattern *(validation set)* solo per la verifica di overfitting durante l'apprendimento e fermarlo prima che l'errore sul validation set inizi ad aumentare.
-- 
+- Utilizzare il _decadimento dei pesi_ (weight decay). Se i pesi hanno una tendenza spontanea a diminuire, i pesi più deboli (*non rinforzati dall'apprendimento*) tenevano al valore zero. Meno pesi = meno parametri. Questo impedisce di apprendere rumore nei dati. 
+$$
+w_{ij} = w_{ij} - \lambda w_{ij} \ \\ \ \ \ \    \ \lambda \approx 0.001
+$$
+**NB**: in generale, i metodi per prevenire eccessivo adattamento (*overfitting*) sono chiamati *metodi di regolarizzazione*
+### Training vs Testing
+**Training Set**: insieme di esempi (*pattern*) per l'addestramento. Sono utilizzati dall'algoritmo di apprendimento per trovare i valori dei pesi delle connessioni.
+**Validation Set**: insieme di esempi per utilizzati per ottimizzare parametri di apprendimento (*detti anche* **iper-parametri** _come **learning rate**, **momentum**, **weight decay**_), il numero di unità nascoste, e per decidere quando fermare l'apprendimento (*early stopping*)
+**Test set**: insieme di esempi utilizzati per valutare la performance finale del modello.
+*Perchè utilizzare set diversi per il validation e test?* Il set di validazione viene utilizzato per selezionare il modello migliore, quindi l'accuratezza sul validation set ha un bias (*è sovrastimata*)
+*Come ripartire gli esempi?* Utilizzare la maggiore quantità di dati possibile per l'addestramento. Se ci sono molti esempi, una possibile divisione è 50-25-25 (*in percentuali*)
+### Cross-validazione
+Se i dati non sono sufficienti per ripartirli in 2 insiemi separati di training e test, è essenziale massimizzare il numero di esempi di training utilizzando la tecnica di **Cross-validazione**.
+**k-fold cross-validation:** il dataset totale viene diviso in k parti di uguale numerosità (*spesso $k=10$*). Ad ogni ciclo di cross-validazione, la k-esima parte del dataset viene esclusa dal training per essere utilizzata come test. La performance finale è data dalla media tra i risultati di ogni ciclo (quindi tra tutte le k ripartizioni).
+### Valutazione della performance
+- La valutazione della performance di una rete neurale va fatta sul **test set**.
+- Esistono molte metriche di performance, anche specifiche per dominio (ad esempio nell'elaborazione del linguaggio naturale)
+- La distinzione principale tra metriche di performance è relativa a compiti di **regressione** vs **classificazione**
+- Un compito di **regressione** implica uno o più output continui. La prestazione si valuta quindi in termini di *distanza* tra output effettivo ed output desiderato, ad esempio utilizzando l'errore quadratico medio (*Mean Squared Error, MSE*) o la proporzione di varianza spiegata ($R^2$ che può avere valori tra $0$ e $1$). Con una singola variabile di output è utile un grafico a dispersione che mostra le predizioni vs i valori target
+- Un compito di **classificazione** implica output binari. Una valutazione in termini di accuratezza (% risposte corrette) non è sufficiente per stabilire la qualità di un classificaore ma va considerata la **matrice di confusione**
+![[Screenshot 2024-04-18 alle 19.08.21.png]]
+# Curva ROC e AUC
+- La curva ROC (Receiver Operating Characteristic) per un classificatore viene creata registrando il valore di *True Positive rate* rispetto a *False Positive rate* al variare di un parametro
+- Ogni punto sulla curva è ottenuto per un dato valore di parametro del classificatore - spesso la soglia utilizzata per discriminare tra 2 classi
+- L'area sotto la curva (AUC *Area Under the Curve*) varia tra 0 e 1 e rappresenta la performance del classificatore (AUC $=1$ significa che le predizioni sono corrette al $100\%$ )
+- AUC è **invariante alla soglia**. Misura la qualità delle predizioni del modello indipendentemente dalla soglia di classificazione
+![[Screenshot 2024-04-18 alle 19.12.56.png]]
