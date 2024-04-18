@@ -88,3 +88,23 @@ La procedura viene eseguita per tutti gli esempi che formano il training set (*e
 #### Momentum
 ![[Pasted image 20240323114115.png]]
 Il "**momento**" aggiunge all'aggiornamento del peso sinaptico una frazione del precedente cambiamento di valore. Quando il gradiente dell'errore ha la stessa direzione, il momento aumenta la grandezza del passo che viene fatto (*verso il minimo*). Quando il gradiente cambia direzione, il momento affievolisce il cambiamento.
+## La generalizzazione
+- È la capacità di utilizzare in modo appropriato la conoscenza sul dominio quando si incontrano nuovi esempi del problema
+- Condizioni necessarie (*ma non sufficienti*) per ottenere una buona generalizzazione:
+	- Le variabili di input contengono sufficienti informazioni relative al target, in modo che esista una funzione matematica che lega l'output corretto agli input con un determinato grado di accuratezza.
+	- Gli esempi per l'addestramento sono in numero sufficientemente grande e sono un campione rappresentativo dell'insieme di casi a cui si vuole generalizzare (*popolazione*)
+![[Screenshot 2024-04-10 alle 19.52.49.png]]
+## Generalizzazione vs. overfitting
+**Generalizzazione:** la produzione di una risposta appropriata a pattern di input non utilizzati per l'addestramento, ovvero un *test set ==indipendente==* dal *training set.*
+**Overfitting:** si verifica quando continua a migliorare la prestazione *sui pattern di addestramento* ma *peggiora* la prestazione in termini di *generalizzazione*.
+![[Screenshot 2024-04-11 alle 14.42.41.png]]
+### Overfitting
+**Perchè?**
+- La relazione X-Y non è regolare (*ha tante eccezioni*)
+- I dati contengono rumore
+-> La rete *apprende* anche il *"rumore"* nei dati usati per addestramento.
+![[Screenshot 2024-04-11 alle 14.46.03.png]]
+**Come evitare overfitting** (e quindi migliorare la generalizzazione)?
+- Utilizzare reti neurali non troppo potenti permette di apprendere le *regolarità statistiche* nei dati piuttosto che <<*memorizzare*>> i pattern di training. Si può ottenere questo *limitando il numero di unità nascoste* (Verificare anche che lo strato nascosto sia necessario!)
+- *Early stopping*: utilizzare un set di pattern *(validation set)* solo per la verifica di overfitting durante l'apprendimento e fermarlo prima che l'errore sul validation set inizi ad aumentare.
+- 
