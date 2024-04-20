@@ -44,4 +44,51 @@ La rete scopre categorie lessicali:
 ## Long-Short Term Memory (LSTM) networks
 - Le SRN hanno una memoria "a breve termine" (short-term memory): non riescono ad apprendere dipendenze temporali lontane nella sequenza di input
 - Questo problema viene risolto nelle reti LSTM, in cui lo strato nascosto è formato da unità LSTM che hanno una struttura più complessa rispetto ai tipici neuroni nascosti
-- Le unità LSTM operano attraverso porte ("**gates**") che definiscono (*attraverso l'apprendimento*) se l'informazione
+- Le unità LSTM operano attraverso porte ("**gates**") che definiscono (*attraverso l'apprendimento*) se l'informazione vada mantenuta nella memoria temporanea e quanto avanti nel tempo dovrebbe essere propagata
+- **Input gate:** lascia entrare l'input nella cella di memoria
+- **Output gate:** lascia uscire il valore corrente della cella di memoria
+- **Forget gate:** resetta il valore currente nella cella di memoria
+NB: Ogni gate ha il suo insieme di pesi sinaptici!
+## Deep recurrent neural networks (RNN) per sequenze
+![[Pasted image 20240420160057.png]]
+- Deep Network con strati nascosti multipli di unità LSTM
+- L'input è un elemento della sequenza (es. un frame video)
+- L'output è il prossimo elemento della sequenza (es. il prossimo frame)
+- Predizione uno step: la rete viene testata sulla predizione del prossimo element, come durante l'apprendimento (es, un frame avanti)
+- Predizione *multi-step*: la predizione del prossimo elemento è utilizzata come input e otteniamo la predizione delle successive (es. due frames avanti)
+#### Esempio: Generazione di testo
+- Deep RNN
+- Training set: vari corpus linguistici di larga scala
+- Apprendimento a livello del carattere: ogni element nella sequenza è un singolo carattere (lettera o singolo)
+![[Pasted image 20240420162011.png]]
+### Word embedding
+- La modellizzazione di sequenze per l'elaborazione del linguaggio naturale (NLP) è più efficente al *livello della parola*. Questo richiede di codificare le singole parole con vettori di lunghezza fissa usando **algoritmi di embedding**
+- **_Word embedding_** è un termine usato per la rappresentazione di parole in forma di un vettore numerico che codifica il significato della parola.
+- Esistono vari algoritmi di word-embedding, anche basati su reti neurali
+**Proprietà**
+- Embeddings preservano relazioni semantiche: parole vicine nello spazio vettoriale hanno un significato simile
+- Composizionalità: operazioni lineari sui vettori danno risultati coerenti
+	- vec("Madrid")-vec("Spain")+vec("France") è più vicino a vec("Paris") che a qualunque altro vettore
+	- vec("Brother")-vec("Man")+vec("Woman") è più vicino a vec("Sister") che a qualunque altro vettore
+## "Attention is all you need": Transformers
+**Transformer**: *un architettura di rete neurale che si basa su meccanismi di* **_self-attention_** _per trasformare una sequenza di elementi (**tokens**) in input in una sequenza di elementi in output, senza utilizzare convoluzioni o connessioni ricorrenti._
+L'architettura generale del Transformer prevede 2 blocchi principali, spesso utilizzati in modo indipendente:
+- **Encoder:** costruisce una rappresentazione interna della sequenza utilizzando come contesto per ogni token si gli elementi precedenti (*a sinistra*) che i successivi (*a destra*)
+	- *BERT (Bidirectional Encoder Representations from Transformers)* di Google, un encoder transformer addestrato a predire una parola "mascherata" utilizzando come contesto l'intera frase (**_masked language modelling_**)
+- **Decoder:** Genera una sequenza di tokens utilizzando solo i tokens precedenti (a sinistra) come contesto per condizionare la generazione.
+	- *GPT (Generative Pretrained Transformer)* di OpenAI, un decoder transformer addestrato in modo *autoregressivo* a predire la parola seguente utilizzando come contesto solo le parole precedenti (**_causal language modeling_**)
+### Self-attention
+Si riferisce al fuoco dell'attenzione, per ogni token rispetto a tutti gli altri tokens di input
+![[Pasted image 20240420164606.png]]
+![[Pasted image 20240420164622.png]]
+## Large Language Models (LLM)
+- Basati sull'architettura **Transformer** e addestrati su enormi quantità di testo scaricato da Internet (Wikipedia, giornali, libri etc...)
+- Aumentare la scala del Transformer (**NB: n di parametri = n. connessioni**) migliora la performance
+- Il modello linguistico viene addestrato con apprendimento self-supervised e successivamente "raffinato" (**fine-tuning**) su compiti specifici con apprendimento supervisionato
+- Per migliorare l'accuratezza e ridurre le risposte inappropriate il LLM deve essere "**allineato**" usando il feedback di utenti umani, che viene utilizzato per un ulteriore fine-tuning basato su apprendimento per rinforzo (**Reinforcement Learning from Human Feedback**)
+## Generazione di testo in GPT
+- Un LLM viene addestrato con self-supervised learning a predire il prossimo **token** data l'attuale sequenza di token di testo come input. **Tokens:** parole, parti di parole, punteggiatura
+- La generazione è sequenziale: un **token** ad ogni passo, ottenuto aggiungendo in modo iterativo l'output al contesto
+- Ogni token ha una **probabilità** e possiamo utilizzare specifici metodi di **decoding** per selezionare il token, rendendo l'output più variabile ed interessante.
+![[Pasted image 20240420165847.png]]
+![[Pasted image 20240420165855.png]]
