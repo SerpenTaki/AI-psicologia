@@ -48,4 +48,8 @@ Gli attrattori della rete corrispondono ai punti di minimo locale della funzione
 - Ci sono 2 meccanismi che consentono di minimizzare l'energia:
 ![[Pasted image 20240420194622.png]]
 #### Reti di Hopfield: Inferenza
-I neuroni hanno stati binari ($-1$ o $+1$) e la loro attivazione è calcolata
+I neuroni hanno stati binari ($-1$ o $+1$) e la loro attivazione è calcolata utilizzando la regola:
+![[Pasted image 20240421110022.png]]
+In altre parole ciascun neurone $x_i$ effettua una somma pesata delle attività di *tutti* gli altri neuroni $x_j$ e si attiva solo se il valore supera una determinata soglia (_funzione di attivazione a scalino o step -> vedi **Percettrone**_)
+- Hopfield ha dimostrato che, se i pesi hanno valori appropriati, le attivazioni della rete convergeranno sempre verso uno stato stabile (*attrattore*), dove le attivazioni non cambiano più (la rete raggiunge l'*equilibrio*)
+#### Reti di Hopfield: apprendimento
