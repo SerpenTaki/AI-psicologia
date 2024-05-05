@@ -53,3 +53,27 @@ I neuroni hanno stati binari ($-1$ o $+1$) e la loro attivazione è calcolata ut
 In altre parole ciascun neurone $x_i$ effettua una somma pesata delle attività di *tutti* gli altri neuroni $x_j$ e si attiva solo se il valore supera una determinata soglia (_funzione di attivazione a scalino o step -> vedi **Percettrone**_)
 - Hopfield ha dimostrato che, se i pesi hanno valori appropriati, le attivazioni della rete convergeranno sempre verso uno stato stabile (*attrattore*), dove le attivazioni non cambiano più (la rete raggiunge l'*equilibrio*)
 #### Reti di Hopfield: apprendimento
+- Ma come possiamo impostare i pesi della rete, in modo che vengano posi recuperate le *memorie corrette*? Usando apprendimento Hebbiano!
+- Ogni pattern di training viene presentato iterativamente alla rete *vincolandolo* nei neuroni, e le connessioni fra i neuroni vengono modificate in base alla regola:
+![[Screenshot 2024-05-05 alle 15.23.22.png]]
+### L'apprendimento "scava" il bacino degli attratori
+- L'apprendimento in una rete di Hopfield modifica la funzione di energia in modo tale da creare attrattori corrispondenti ai pattern di training
+- Allo stesso tempo, l'energia di configurazioni improbabili deve essere aumentata
+![[Screenshot 2024-05-05 alle 15.40.46.png]]
+## Attratori spuri
+Se incrementiamo il numero di pattern (attrattori) da memorizzare la rete sviluperà anche un certo numero di memorie sbagliate, chiamate **attrattori spuri** che non corrispondono a minimi locali ma comunque rappresentano stati di equilibrio, e possono impedire alla rete di recuperare la memoria corretta
+-> Questo problema può essere mitigato introducendo una **dinamica stocastica**
+![[Screenshot 2024-05-05 alle 16.25.52.png]]
+### Dinamica stocastica
+Per evitare di rimanere intrappolati in cattivi minimi locali, possiamo sostituire la funzione di attivazione deterministica con una funzione stocastica:
+![[Screenshot 2024-05-05 alle 16.26.53.png]]
+#### Parametro Temperatura
+Manipolando la curvatura della sigmoide, la temperatura definisce quanto il sistema è stocastico, ovvero, quanto la sua dinamica sarà **rumorosa/casuale:**
+![[Screenshot 2024-05-05 alle 16.28.05.png]]
+## Simulated Annealing
+- Per raggiungere il miglior minimo di energia cominciamo con una temperatura alta nel sistema, e poi gradualmente lo *raffreddiamo*: la temperatura viene progressivamente ridotta finchè il sistema diventa deterministico
+- Questa procedura di ottimizzazione è ispirata dal metodo di ricottura dei metalli (*annealing*) che vengono raffreddati gradualmente allo scopo di ottenere configurazioni atomiche più ordinate (*es: lame più dure e resistenti*)
+![[Screenshot 2024-05-05 alle 16.33.14.png]]
+![[Screenshot 2024-05-05 alle 16.33.32.png]]
+![[Screenshot 2024-05-05 alle 16.33.49.png]]
+# Reti neurali generative
