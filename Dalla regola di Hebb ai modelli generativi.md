@@ -77,3 +77,25 @@ Manipolando la curvatura della sigmoide, la temperatura definisce quanto il sist
 ![[Screenshot 2024-05-05 alle 16.33.32.png]]
 ![[Screenshot 2024-05-05 alle 16.33.49.png]]
 # Reti neurali generative
+- Invece di apprendere un mapping input-output, un modello generativo cerca di scoprire la struttura latente dei dati in input creando un modello interno *probabilistico* dell'ambiente, che potrebbe aver generato tali dati:
+	- Le cause latenti di un segnale sensoriale costituiscono la sua **rappresentazione interna**
+	- In ottica Bayesiana, rappresentano le **ipotesi sui dati**, che vengono aggiornate ogni volta che osserviamo nuova evidenza
+-> Percezione e cognizione caratterizzate come processi inconsci di inferenza statistica
+### Dalle reti Hopfield alle macchine di Boltzmann
+- Le macchine di Boltzmann sono una variante stocastica delle reti di Hopfield che sfruttano unità nascoste per estrarre **correlazioni di ordine superiore** dai dati
+- Inoltre, usando neuroni nascosti le macchine di Boltzmann ottengono una **capacità di memorizzazione superiore** alle reti di Hopfield
+- I neuroni nascosti vengono usati per **comprimere l'informazione**, dato che estraggono struttura latente (*features*) dalla distribuzione dei fati
+Computazionalmente **molto** dispendiose!
+#### Macchine di Boltzmann: Dinamica
+- I neuroni hanno stati binari (0 o 1) e la loro attivazione è calcolata in base ad una funzione di attivazione stocastica:
+![[Screenshot 2024-05-05 alle 16.47.41.png]]
+- Si comincia con un pattern in input "vincolato" alle unità visibili, mentre le unità nascoste vengono inizializzate con valori casuali
+- Aggiorniamo iterativamente il valore di attivazione di ciascun neurone finchè la rete raggiunge l'equilibrio. Questo processo viene chiamato *Gibbs sampling*
+- **NB:** anche qui possiamo usare il *simulated annealing* per migliorare la convergenza verso minimi locali migliori, evitando attrattori spuri.
+### Restricted Boltzmann Machine (RBM)
+- Grafo bipartito, completamente connesso (*no connessioni intra-layer*)
+	- I neuroni nascosti ("ipotesi") diventano **condizionalmente indipendenti**
+	- La complessità computazionale si riduce enormemente
+- La funzione di energia dipende comunque dai valori delle connessioni sinaptiche (pesi **_W_**), che costituiscono i parametri del modello generativo:
+$$ P(v,h) = e^{E(v,h)}/Z $$
+$$ E(v,h)=-b^Tv-c^Th-h^TWv $$
