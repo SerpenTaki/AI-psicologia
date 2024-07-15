@@ -1,7 +1,6 @@
 *Siccome in parallelo ad informatica si svolge un corso simile dallo stesso numero di crediti metto le domande qui magari tornano utili anche come ripasso per il corso di psicologia*
 
 ### 1. Quali sono i principali paradigmi del machine learning? Se ne riporti una descrizione sintetica, chiarendo quali siano le principali differenze, con particolare enfasi per il caso del supervised learning. Si distinguano in particolare classificazione e regressione
-
 I principali paradigmi del machine learning sono: **Supervised Learning, Unsupervised Learning e Reinforcement Learning**
 - Il **supervised learning** agisce in base all'attività: l'algoritmo prevede il comportamento di un agente, utilizzando l'esperienza del passato tramite principalmente algoritmi di regressione e classificazione. L'obiettivo è che l'algoritmo fornisca una risposta corretta a ogni esempio nel dataset.
 	Presuppone che i dati siano delle coppie $(x,y)$ e che ci sia una funzione di apprendimento che cattura le informazioni da ogni esempio. Quindi viene costruita una funzione $h$ che data in input una $x$ deve produrre il corrispettivo $y$ correttamente. Quindi all'inizio deve mappare, dai dati forniti, possibilmente tutti i tipi di $x$ con la corrispettiva $y$ del dataset fornito per il training. L'output è diverso in base all'algoritmo implementato che normalmente può essere un algoritmo di classificazione o regressione. L'esperienza fornita dal dataset da sola non ci permette di fare previsioni sulle istanze di dati non visti.
@@ -20,6 +19,8 @@ $$
 h_\theta(x) = \theta \times x = \theta^T \times x
 $$
 La regressione **logistica** è un modello **statistico** che predice la probabilità di un risultato che **può avere solo 2 valori**. La funzione di predizione $h(x)$ produce risultati compresi tra 0 e 1. Questo permette di considerare questo valore come una probabilità, tramite spesso una funzione come la sigmoide, che è ideale per task di classificazione.
+
+---
 ### 2. Cosa si intende per "*one learning algorithm hypothesis*" e come tale ipotesi si relaziona con le reti neurali artificiali? Si fornisca inoltre una descrizione esaustiva degli elementi/ingredienti principali che permettono la definizione di una rete neurale multistrato
 
 Ci sono evidenze che il cervello umano utilizzi lo stesso algoritmo di apprendimento per processare diversi input, i quali possono essere per esempio la vista, l'udito e il tatto attraverso i neuroni.
@@ -37,4 +38,58 @@ Riceve da 2 input ognuno cosi: +20 se l'input è 1 o 0 se l'input è 0 e avrà c
 Prendendo un esempio banale come l'operazione logica XNOR la quale corrisponde all'unione delle operazioni logiche &, NOT e OR, essa suddivide il piano cartesiano in 4 parti, e questa suddivisione non può essere rappresentata da un singolo neurone con classificazione lineare poichè il singolo neurone non è capace di svolgere tutte queste operazioni logiche insieme.
 La soluzione è **combinare** i neuroni con compiti diversi e l'output combinato dai 2 che effettuano 2 operazioni matematiche diverse rappresenterà l'output desiderato. È importante sottolineare che generalmente, prendendo d'esempio un problema di classificazione non lineare e dei neuroni con classificazione lineare se si prende individualmente il risultato dei singoli neuroni, la classificazione sarà terribile, ma collaborando insieme per risolvere un problema complesso, produrranno una suddivisione ottimale risolvendo, sempre per esempio un problema non lineare.
 Per cui una rete neurale non è altro che un insieme di tanti neuroni "stupidi" che svolgono task intermedie, che possono fare operazioni uguali ma con parametri diversi e tutti gli output vengono sommati insieme per produrre una soluzione a un problema complesso.
+
+---
 ### 3. Si descriva in modo dettagliato il modello di logistic regression (con regolarizzazione) le sue principali caratteristiche ed il contributo  dei diversi elementi presenti nella funzione di costo. Si riporti infine una descrizione accurata delle differenze di tale modello rispetto ad un semplice classificatore lineare, anche mediante esempi qualitativi.
+La regressione logistica è un algoritmo di apprendimento supervisionato che costruisce un modello probabilistico lineare di classificazione dei dati. È usata anche nel machine learning per l'addestramento di un algoritmo nella classificazione supervisionata dei dati usato per stimare 2 risultati e solo 2.
+L'algoritmo stima la probabilità di occorrenza di un evento adattando i dati a una funzione logistica.
+Essa è ottenuta dall'espressione: $z = \theta^T \times x$ 
+La funzione **di costo** per la logistic regression è la seguente:
+$$
+J(\Theta) = - 1/m[\sum_{i=1}^m y^{(i)}\times log(h_\theta(x^{(i)}))+(1-y^{(i)})\times log(1-h_\theta(x^{(i)}))]
+$$
+**Con regolarizzazione** diventa:
+$$
+J(\Theta) = - 1/m[\sum_{i=1}^m y^{(i)}\times log(h_\theta(x^{(i)}))+(1-y^{(i)})\times log(1-h_\theta(x^{(i)}))]+ \lambda/2m \sum^n_{j=1} \theta_j^2
+$$
+Nella fase di addestramento l'algoritmo di regressione logistica prende in input $n$ esempi da un insieme di training e ogni singolo esempio è composto da $m$ attributi e dalla classe corretta di appartenenza.
+Durante l'addestramento l'algoritmo elabora un distributore di pesi ($W$) che permetta di classificare correttamente gli esempi con le classi corrette.
+Poi viene calcolata la combinazione lineare $z$ del vettore dei pesi $W$ e degli attributi e questa combinazione lineare viene passata alla **sigmoide** che calcola la probabilità di appartenza del campione alle classi del modello.
+La **Regolarizzazione** è la metodologia per mantenere un modello con un numero immenso di variabili e quindi un modello dettagliato, ma pesando diversamente le variabili durante la fase di dataset per calibrare i pesi e non cadere in casi di overfitting.
+La regolarizzazione funziona aggiungendo la penalità associativa ai valori di coefficiente all'errore di ipotesi.
+Il valore penalizzatore **lambda** viene deciso/calcolato tramite metodo di **gradient descent** il quale si aggiorna con una velocità decisa fino a trovare il minimo locale in un determinato numero di iterazioni. La differenza tra regressione logistica e lineare è ampia.
+Come già detto la regressione logistica è un modello di classificazione, mentre la regressione **lineare** è un algoritmo regressore che restituisce come risposta un altro valore tramite l'interpolazione dei dati.
+![[Screenshot 2024-07-15 alle 16.33.10.png]]
+L'update del gradiente è esattamente la stessa sia la stessa sia per la regressione lineare che per quella logistica.
+Riguardo alla Linear Regression dato in esempio un prodotto cartesiano con dei punti disposti nel piano, la nostra linear regression produce un modello basato sul costo totale che è una linea, corretta ma inefficiente.
+La logistic regression o **sigmoide** è un approccio decisamente migliore rispetto alla linear regression, nell'implementazione di classificatori in quanto essa è dotata di una peculiare forma (*quella di una S*) e la proprietà di avere il $h_\theta(x)$ contenuto tra 0 e 1.
+Nella quale $\theta(0)$ sarà il punto di flesso mentre $\theta(1)$ sarà la velocita (*inclinazione*) con la quale la funzione passerà da 0 (_sinistra_) ad 1 (_destra_)
+Se i dati sono uniformemente distribuiti, e si sta utilizzando la tecnica del **Least-squares** è possibile notare un comportamento molto simile alla funzione lineare, invece se si va a creare uno sbilanciamento nei dati, notiamo che la lineare (*volendo essere troppo giusta*) crea un errore, mentre la sigmoide non è affetta da questo problema grazie alle proprietà sopra descritte.
+Il **difetto** della logistic regression è che la funzione non è convessa come quella lineare ma tende ad essere più ondulata.
+
+---
+### 4. Si descriva dettagliatamente la procedura di model selection (aiutandosi con un esempio concreto) e si fornisca una chiara giustificazione teorica/concettuale a tale procedura
+**la selezione del modello** è il compito di selezionare un modello statistico da un insieme di modelli candidati.
+Per far ciò p noto usare l'**Hold Out**, ovvero dato il nostro dataset, esso viene suddiviso generalmente in **Training Set** per il 70%, **Validation Set** per un 15% e **Test Set** per il restante 15%, ovviamente queste percentuali possono differire, ma si consiglia una suddivisione tale.
+Il **Training Set** sono i dati forniti alla macchina per allenare e addestrare modelli con diversi valori per i parametri.
+Per cui i nostri modelli aggiornano i parametri in base ai dati forniti, e visto l'importanza vi è la necessità che il Training Set sia di dimensione non piccola, sia diversificato equamente negli esempi forniti per non cadere in casi di overfitting e cercare di coprire in termini assoluti tutte le istanze possibili, anche se nella realtà è molto improbabile avere un dataset tale.
+Il **Validation Set** è un set fittizio usato durante il processo di training, nel quale abbiamo esempi che il nostro modello non ha mai visto per vedere se il nostro modello in questione riesce a prevedere correttamente il compito che deve eseguire e aggiornare i parametri per migliorare l'errore dei modelli creati.
+Questo Set ci fornisce già il modello tra tutti quelli che disponiamo, il quale risponde meglio alle richieste, ma per non cadere in casi di overfitting sul Validation Test utilizziamo il 15% dei dati rimanenti per effettuare un altro test.
+Questi dati fanno parte del **Test Set**, i quali come già descritto, determineranno con esempi mai visti dal modello, il modello migliore tra tutti e confermerà o meno ciò gia visto con Validation Set.
+Questi dati sono normalmente un indice di affidabilità dato che questi dati non sono solitamente a disposizione di chi crea il modello in quanto è un dataset usato solo per una verifica se il modello scelto è efficiente.
+
+Questa suddivisione, e questi Test fatti, cercano di simulare un problema noto e importante ovvero il problema dello **Scenario Vero**. Ovvero noi alleniamo gli algoritmi tramite dei nostri dataset, ma concretamente non sappiamo realmente come i dati sono distribuiti.
+Qui nasce l'**Empirical Risk Minimization** che definisce una famiglia di algoritmi apprenditivi e si danno dei limiti teorici di performance.
+Questo perchè prendendo in esempio un algoritmo per la valutazione delle case, se forniamo un dataset di un milione di case, queste saranno comunque una piccola parte rispetto alla realtà anche se il dataset in termini è grande.
+Il **True Error** lo potremmo avere soltanto se il nostro dataset comprendesse tutti i casi possibili; quindi, nella realtà preso d'esempio il True Error come uno spazio nel piano cartesiano come un uovo la nostra funzione $h$ dovrà avere un proprio spazio nel piano più verosimile al True Error, cosa comunque difficile se non impossibile da equiparare.
+Un altro problema noto è che i dati che molte volte abbiamo a disposizione sono distribuiti a "*coda lunga*", ovvero avremo molti esempi per dei determinati tipi, e altri in cui ne avremo pochi, questo creerà uno sbilanciamento nei dati che può portare il modello a preferire determinate categorie o esempi rispetto ad altri in modo arbitrario e ingiusto. Un esempio di questo problema è il riconoscimento di una sposa, per il quale avremo molti esempi di spose col vestito bianco, quando per esempio in India le spose per usanza diversa, sono colorate e tendenzialmente avremo meno esempi e questo comporta al modello di non riconoscere le spose indiane se vengono forniti i dataset in modo bilanciato.
+
+---
+### 5. Spiegare in dettaglio gli elementi fondamentali del perceptrone, più in generale delle reti neurali. Si riporti una breve descrizione di come tale modello possa essere esteso mediante la realizzazione di un'architettura a più strati, fornendo un esempio che evidenzi le differenze/vantaggi di tale architettura.
+La  più piccola unità di una rete neurale è il **neurone**, esso ottiene molteplici dati in input e tramite una funzione matematica produce un output.
+Il neurone è composto da: gli **input** che idealmente rappresentano i dentriti del neurone umano, l'elaborazione effettuata tramite funzioni matematiche che rappresentano il nucleo e l'output che corrisponde all'assone del neurone umano.
+Per esempio storicamente il primo esempio è stato il **percettrone**il quale tramite una combinazione linaere $h_\theta(x)$ dava in output 1 se $\theta^T\times x$ era maggiore di 0, 0 altrimenti. La funzione applicata ad x, può essere per esempio la **Logistic Unit**, ma anche la **Sigmoide** o la **Tahn**, na anche tante altre.
+Idealmente la rete neurale è un gruppo di diversi neuroni con forti collegamenti tra di essi. Tendenzialmente avremo 3 livelli: **input layer, hidden layer e output layer**.
+L'**architettura** della rete neurale non è altro che una scelta dei 3 tipi di neuroni descritti sopra. Idealmente l'unica scelta architetturale importante è sull'hidden layer, poichè l'input, che sono le features dipendono dall'hardware disponibile e dalla complessità del problema e l'output normalmente è già stabilito a priori.
+Nell'hidden layer scegliere quanti neuroni ha ogni strato, muoversi in profondità e quanti strati porre, ovvero muoversi in larghezza, significa apportare nuovi parametri e non è una scelta faile. Idealmente ogni neurone è una funzione, la quale prende in input il risultato del neurone precedente, tranne per il primo strato che prende l'input, e lo processa e produce un output che sarà consegnato a un altro gruppo di neuroni. Per cui vi è una **gerarchia** ed è per questo che è utile avere milioni di neuroni, perchè così l'input iniziale verrà processato idealmente milioni di volte prima di essere restituito dalla nostra rete neurale.
+Riguardo all'input di un neurone/percettrone, oltre a quello già descritto si ricorda che per tutti i neuroni oltre all'input ricevuto da altri neuroni o dall'input vi è il **bias unit**, cioè un bias da applicare all'operazione che svolge il neurone. Per esempio, se il neurone svolge una sommatoria la quale serve a svolgere la operazione della porta logica & tra solo 2 input corrisponderà a:
